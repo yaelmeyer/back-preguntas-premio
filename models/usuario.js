@@ -11,6 +11,10 @@ const UsuarioSchema = Schema({
     },
     puntos:{
         type: Number
+    },
+    diasTerminados:{
+        type: Array,
+        require:[true, 'los dias son obligatorios']
     }
 })
 

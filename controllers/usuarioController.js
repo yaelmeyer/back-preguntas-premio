@@ -57,8 +57,29 @@ const usuarioGetAuth = async(req = request, res = response) => {
     })
 }
 
+const terminarDia = async(req = request, res = response) =>{
+
+    const {usuario, dia} = req.body
+
+    const query = {
+        usuario: usuario.usuario,
+        password: usuario.password
+    }
+
+    user = await Usuario.find(query)
+
+    user[0].diasTerminados.push(dia)
+
+    user[0].save()
+
+    res.json({
+        msg: 'dia guardado'
+    })
+}
+
 module.exports = {
     usuarioGet,
     puntosPost,
-    usuarioGetAuth
+    usuarioGetAuth,
+    terminarDia
 }

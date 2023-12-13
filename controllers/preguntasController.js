@@ -1,5 +1,6 @@
 const {response, request} = require('express');
 const Pregunta = require('../models/pregunta');
+const Paquete = require('../models/paquete')
 
 const preguntaGet = async(req = request, res = response) =>{
     const {dia} = req.query;
@@ -44,8 +45,38 @@ const getPreguntasRespondidas =  async(req = request, res = response) =>{
     })
 }
 
+const getPreguntasByPaquete = async(req = request, res =response) =>{
+    const {_id} = req.query
+    
+    const query = {
+        paquete: _id,
+        respondida: false
+    }
+    console.log(_id)
+    console.log(req.query)
+
+    const preguntas = await Pregunta.find(query)
+
+    res.json({
+        msg: 'preguntas encontradas',
+        preguntas
+    })
+}
+
+const getPaquetes = async(req = request, res = response) =>{
+    
+    const paquetes = await Paquete.find()
+
+    res.json({
+        msg: 'paquetes encontrados',
+        paquetes
+    })
+}
+
 module.exports = {
     preguntaGet,
     preguntasPost,
-    getPreguntasRespondidas
+    getPreguntasRespondidas,
+    getPreguntasByPaquete,
+    getPaquetes
 }

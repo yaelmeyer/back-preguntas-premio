@@ -103,12 +103,26 @@ const crearPaquete = async(req = request, res = response) =>{
     })
 }
 
+const reiniciar = async(req = request, res = response) =>{
+    const preguntas = await Pregunta.find()
+
+    for(let cont = 0; cont < preguntas.length; cont++){
+        preguntas[cont].correcto = false
+        preguntas[cont].respondida = false
+        preguntas[cont].save()
+    }
+
+    res.json({
+        msg:'preguntas reiniciadas correctamente'
+    })
+}
+
 module.exports = {
     preguntaGet,
     preguntasPost,
     getPreguntasRespondidas,
     getPreguntasByPaquete,
     getPaquetes,
-
+    reiniciar,
     crearPaquete
 }

@@ -85,10 +85,30 @@ const getPaquetes = async(req = request, res = response) =>{
     })
 }
 
+//administrador de paquetes y preguntas
+
+const crearPaquete = async(req = request, res = response) =>{
+    const {descripcion} = req.body
+    console.log(descripcion)
+    console.log(req.body)
+    const _id = Math.random()+''
+
+    const paquete = new Paquete({_id, descripcion})  
+    
+     await paquete.save() 
+
+    res.json({
+        msg: 'paquete agregado',
+        paquete
+    })
+}
+
 module.exports = {
     preguntaGet,
     preguntasPost,
     getPreguntasRespondidas,
     getPreguntasByPaquete,
-    getPaquetes
+    getPaquetes,
+
+    crearPaquete
 }

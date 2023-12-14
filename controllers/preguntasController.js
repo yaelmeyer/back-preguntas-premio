@@ -67,9 +67,21 @@ const getPaquetes = async(req = request, res = response) =>{
     
     const paquetes = await Paquete.find()
 
+    let paquetesFinal = []
+    console.log(paquetes.length)
+    for(let cont = 0; cont < paquetes.length; cont++){
+        let query ={
+            paquete:paquetes[cont]._id,
+            respondida:false
+        }
+        let preguntas = await Pregunta.find(query)
+        if (preguntas.length > 0)
+            paquetesFinal.push(paquetes[cont])
+    }
+
     res.json({
         msg: 'paquetes encontrados',
-        paquetes
+        paquetes: paquetesFinal
     })
 }
 

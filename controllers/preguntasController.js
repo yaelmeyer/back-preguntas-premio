@@ -49,8 +49,7 @@ const getPreguntasByPaquete = async(req = request, res =response) =>{
     const {_id} = req.query
     
     const query = {
-        paquete: _id,
-        respondida: false
+        paquete: _id
     }
     console.log(_id)
     console.log(req.query)
